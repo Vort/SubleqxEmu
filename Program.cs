@@ -147,7 +147,10 @@ namespace SubleqxEmu
                     }
                     else if (addr == 2)
                     {
-                        return (ulong)Console.Read();
+                        int c = Console.Read();
+                        if (c == '\r')
+                            c = Console.Read();
+                        return (ulong)-c;
                     }
                     else if (addr == 3)
                     {
@@ -174,7 +177,7 @@ namespace SubleqxEmu
                 }
                 else if (pb == 3)
                 {
-                    Console.Write((char)((ulong)b << sxs >> sxs));
+                    Console.Write((char)((ulong)-b << sxs >> sxs));
                 }
 
                 if (b <= 0)
