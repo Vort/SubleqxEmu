@@ -18,9 +18,8 @@ namespace SubleqxEmu
             ulong value = 0;
             for (int i = 0; i < size; i++)
             {
-                value += value;
                 if ((Data[byteIndex] >> bitIndex & 1) != 0)
-                    value++;
+                    value |= 1UL << i;
                 bitIndex++;
                 if (bitIndex > 7)
                 {
@@ -33,9 +32,7 @@ namespace SubleqxEmu
 
         public void WriteValue(long value, int size)
         {
-            if (value >= 1L << size)
-                throw new Exception();
-            for (int i = size - 1; i > -1; i--)
+            for (int i = 0; i < size; i++)
             {
                 int bit = 1 << bitIndex;
                 Data[byteIndex] &= (byte)~bit;
